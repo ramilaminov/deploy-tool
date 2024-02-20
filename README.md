@@ -1,4 +1,4 @@
-# deploy-tool
+# Deploy tool
 
 To install dependencies:
 

@@ -1,27 +1,28 @@
-import { $ } from "bun";
 import { serviceCompose } from "../templates/service-compose";
+import type { SSHRunner } from "../utils/ssh";
+import { deployStack } from "./deploy-stack";
 
-export async function deploy({
-  image,
-  domain,
-  name,
-  port,
-  sshUser,
-}: {
-  image: string;
-  domain: string;
-  name: string;
-  port: string;
-  sshUser: string;
-}) {
-  $.throws(true);
+export async function deploy(
+  ssh: SSHRunner,
+  {
+    domain,
+    image,
+    name,
+    port,
+  }: {
+    domain: string;
+    image: string;
+    name: string;
+    port: string;
+  },
+) {
+  console.log(`Deploying a new version of service '${name}'...`);
 
-  const destination = `${sshUser}@${domain}`;
+  await deployStack(ssh, {
+    compose: serviceCompose({ name, image, port, domain }),
+    name,
+  });
 
-  console.log(`Deploying '${name}' stack...`);
-
-  const compose = serviceCompose({ name, image, port, domain });
-  await $`ssh "${destination}" "echo ${$.escape(compose)} | sudo docker stack deploy -c - ${name}"`;
-
-  console.log(`'${name}' stack started.`);
+  console.log(`\nService '${name}' will be available at https://${domain}.`);
+  console.log("Generating certificates may take a few more minutes.");
 }

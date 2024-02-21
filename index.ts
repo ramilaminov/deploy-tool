@@ -1,6 +1,7 @@
 import { Clerc } from "clerc";
 import { deploy } from "./commands/deploy";
 import { setup } from "./commands/setup";
+import { ssh } from "./utils/ssh";
 
 Clerc.create()
   .scriptName("Deploy tool")
@@ -18,7 +19,7 @@ Clerc.create()
     },
   })
   .command("deploy", "Deploy service", {
-    parameters: ["<image>", "<domain>", "<name>"],
+    parameters: ["<ip>", "<domain>", "<image>", "<name>"],
     flags: {
       port: {
         alias: "p",
@@ -35,18 +36,22 @@ Clerc.create()
     },
   })
   .on("setup", async (context) => {
-    await setup({
-      ip: context.parameters.ip,
-      sshUser: context.flags.sshUser,
+    const { ip } = context.parameters;
+    const { sshUser } = context.flags;
+
+    await setup(ssh(ip, sshUser), {
+      ip,
     });
   })
   .on("deploy", async (context) => {
-    await deploy({
-      image: context.parameters.image,
-      domain: context.parameters.domain,
-      name: context.parameters.name,
-      port: context.flags.port,
-      sshUser: context.flags.sshUser,
+    const { ip, domain, image, name } = context.parameters;
+    const { port, sshUser } = context.flags;
+
+    await deploy(ssh(ip, sshUser), {
+      domain,
+      image,
+      name,
+      port,
     });
   })
   .parse();

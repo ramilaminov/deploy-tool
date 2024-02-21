@@ -34,8 +34,6 @@ services:
         - traefik.http.services.${name}.loadbalancer.server.port=${port}
         - traefik.http.routers.${name}.rule=Host(\`${domain}\`)
         - traefik.http.routers.${name}.entrypoints=websecure
-        - traefik.http.routers.${name}.tls=true
-        - traefik.http.routers.${name}.tls.certresolver=letsencrypt
     networks:
       - traefik-public
 

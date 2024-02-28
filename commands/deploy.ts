@@ -9,17 +9,19 @@ export async function deploy(
     image,
     name,
     port,
+    path,
   }: {
     domain: string;
     image: string;
     name: string;
     port: string;
+    path?: string;
   },
 ) {
   console.log(`Deploying a new version of service '${name}'...`);
 
   await deployStack(ssh, {
-    compose: serviceCompose({ name, image, port, domain }),
+    compose: serviceCompose({ name, image, port, domain, path }),
     name,
   });
 

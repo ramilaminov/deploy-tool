@@ -27,6 +27,11 @@ Clerc.create()
         default: "80",
         description: "Port the container listens to",
       },
+      path: {
+        alias: "P",
+        type: String,
+        description: "Path prefix",
+      },
       sshUser: {
         alias: "u",
         type: String,
@@ -45,13 +50,14 @@ Clerc.create()
   })
   .on("deploy", async (context) => {
     const { ip, domain, image, name } = context.parameters;
-    const { port, sshUser } = context.flags;
+    const { port, path, sshUser } = context.flags;
 
     await deploy(ssh(ip, sshUser), {
       domain,
       image,
       name,
       port,
+      path,
     });
   })
   .parse();

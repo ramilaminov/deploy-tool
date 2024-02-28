@@ -3,11 +3,13 @@ export const serviceCompose = ({
   image,
   port,
   domain,
+  path = "/",
 }: {
   name: string;
   image: string;
   port: string;
   domain: string;
+  path?: string;
 }) => `
 version: '3.8'
 
@@ -32,7 +34,7 @@ services:
       labels:
         - traefik.enable=true
         - traefik.http.services.${name}.loadbalancer.server.port=${port}
-        - traefik.http.routers.${name}.rule=Host(\`${domain}\`)
+        - traefik.http.routers.${name}.rule=Host(\`${domain}\`)${path !== "/" ? ` && PathPrefix(\`${path}\`)` : ""}
         - traefik.http.routers.${name}.entrypoints=websecure
     networks:
       - traefik-public

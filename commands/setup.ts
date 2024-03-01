@@ -1,7 +1,7 @@
 import { traefikCompose } from "../templates/traefik-compose";
 import type { SSHRunner } from "../utils/ssh";
 import { createDockerNetwork } from "./create-docker-network";
-import { deployStack } from "./deploy-stack";
+import { deployDockerStack } from "./deploy-docker-stack";
 import { initDockerSwarm } from "./init-docker-swarm";
 import { installDocker } from "./install-docker";
 
@@ -18,7 +18,7 @@ export async function setup(ssh: SSHRunner, { ip }: { ip: string }) {
   await createDockerNetwork(ssh, { name: "traefik-public" });
 
   console.log("\nSTEP 4/4");
-  await deployStack(ssh, { compose: traefikCompose(), name: "traefik" });
+  await deployDockerStack(ssh, { compose: traefikCompose(), name: "traefik" });
 
   console.log(`\nServer at ${ip} configured.`);
 }

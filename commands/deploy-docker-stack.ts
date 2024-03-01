@@ -1,7 +1,7 @@
 import { $ } from "bun";
 import type { SSHRunner } from "../utils/ssh";
 
-export async function deployStack(
+export async function deployDockerStack(
   ssh: SSHRunner,
   { compose, name }: { compose: string; name: string },
 ) {

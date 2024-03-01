@@ -1,4 +1,4 @@
-import { Clerc } from "clerc";
+import { Clerc, helpPlugin } from "clerc";
 import { deploy } from "./commands/deploy";
 import { setup } from "./commands/setup";
 import { ssh } from "./utils/ssh";
@@ -7,7 +7,8 @@ Clerc.create()
   .scriptName("Deploy tool")
   .description("Deploy tool")
   .version("0.1.0")
-  .command("setup", "Setup server", {
+  .use(helpPlugin())
+  .command("setup", "Set up a server for future deployment", {
     parameters: ["<ip>"],
     flags: {
       sshUser: {
@@ -18,7 +19,7 @@ Clerc.create()
       },
     },
   })
-  .command("deploy", "Deploy service", {
+  .command("deploy", "Deploy a new version of a service", {
     parameters: ["<ip>", "<domain>", "<image>", "<name>"],
     flags: {
       port: {
@@ -30,7 +31,7 @@ Clerc.create()
       path: {
         alias: "P",
         type: String,
-        description: "Path prefix",
+        description: "Path prefix that the service should handle",
       },
       sshUser: {
         alias: "u",

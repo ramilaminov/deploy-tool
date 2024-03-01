@@ -5,7 +5,7 @@ export async function installDocker(ssh: SSHRunner) {
 
   console.log("Installing Docker...");
 
-  await ssh("curl -fsSL https://get.docker.com | sh");
+  await ssh("curl -fsSL https://get.docker.com | sh > /dev/null");
 
   console.log("Docker installed successfully.");
 }

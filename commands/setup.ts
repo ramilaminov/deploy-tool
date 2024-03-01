@@ -20,5 +20,5 @@ export async function setup(ssh: SSHRunner, { ip }: { ip: string }) {
   console.log("\nSTEP 4/4");
   await deployDockerStack(ssh, { compose: traefikCompose(), name: "traefik" });
 
-  console.log(`\nServer at ${ip} configured.`);
+  console.log(`\nServer at ${ip} configured successfully.`);
 }

@@ -8,8 +8,8 @@ export async function deployDockerStack(
   console.log(`Deploying '${name}' stack...`);
 
   await ssh(
-    `echo ${$.escape(compose)} | sudo docker stack deploy -c - ${name}`,
+    `echo ${$.escape(compose)} | sudo docker stack deploy -c - ${name} > /dev/null`,
   );
 
-  console.log(`'${name}' stack started.`);
+  console.log(`Stack '${name}' started successfully.`);
 }

@@ -6,7 +6,7 @@ export async function createDockerNetwork(
 ) {
   console.log(`Creating Docker network named '${name}'...`);
 
-  await ssh(`sudo docker network create --driver=overlay ${name}`);
+  await ssh(`sudo docker network create --driver=overlay ${name} > /dev/null`);
 
-  console.log(`'${name}' network created.`);
+  console.log(`Network '${name}' created successfully.`);
 }

@@ -2,6 +2,7 @@
   "name": "deploy-tool",
   "module": "index.ts",
   "devDependencies": {
+    "@biomejs/biome": "1.7.0",
     "@types/bun": "latest"
   },
   "peerDependencies": {

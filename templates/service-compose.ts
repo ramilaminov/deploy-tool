@@ -34,7 +34,9 @@ services:
       labels:
         - traefik.enable=true
         - traefik.http.services.${name}.loadbalancer.server.port=${port}
-        - traefik.http.routers.${name}.rule=Host(\`${domain}\`)${path !== "/" ? ` && PathPrefix(\`${path}\`)` : ""}
+        - traefik.http.routers.${name}.rule=Host(\`${domain}\`)${
+          path !== "/" ? ` && PathPrefix(\`${path}\`)` : ""
+        }
         - traefik.http.routers.${name}.entrypoints=websecure
     networks:
       - traefik-public

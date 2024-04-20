@@ -1,4 +1,4 @@
-import { $, ShellPromise } from "bun";
+import { $, type ShellPromise } from "bun";
 
 export type SSHRunner = (command: string) => ShellPromise;
 

@@ -4,18 +4,21 @@ export const serviceCompose = ({
   port,
   domain,
   path = "/",
+  environment,
 }: {
   name: string;
   image: string;
   port: string;
   domain: string;
   path?: string;
+  environment: string[];
 }) => `
 version: '3.8'
 
 services:
   ${name}:
     image: ${image}
+    ${buildEnvironment(environment)}
     deploy:
       replicas: 1
       update_config:
@@ -45,3 +48,11 @@ networks:
   traefik-public:
     external: true
 `;
+
+const buildEnvironment = (variables: string[]): string => {
+  if (variables.length === 0) return "";
+  // TODO Check variable format (name=value) and escape special characters
+  return `environment:\n${variables
+    .map((variable) => `      - ${variable}`)
+    .join("\n")}`;
+};

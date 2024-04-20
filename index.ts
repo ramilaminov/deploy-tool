@@ -40,6 +40,11 @@ Clerc.create()
         default: "root",
         description: "SSH user",
       },
+      environment: {
+        alias: "e",
+        type: [String],
+        description: "Environment variables",
+      },
     },
   })
   .on("setup", async (context) => {
@@ -52,7 +57,7 @@ Clerc.create()
   })
   .on("deploy", async (context) => {
     const { ip, domain, image, name } = context.parameters;
-    const { port, path, sshUser } = context.flags;
+    const { port, path, sshUser, environment } = context.flags;
 
     await deploy(ssh(ip, sshUser), {
       domain,
@@ -60,6 +65,7 @@ Clerc.create()
       name,
       port,
       path,
+      environment,
     });
   })
   .parse();

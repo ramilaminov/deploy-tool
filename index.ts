@@ -1,13 +1,14 @@
-import { Clerc, helpPlugin } from "clerc";
+import { Clerc, helpPlugin, versionPlugin } from "clerc";
 import { deploy } from "./commands/deploy";
 import { setup } from "./commands/setup";
 import { ssh } from "./utils/ssh";
 
 Clerc.create()
-  .scriptName("Deploy tool")
+  .scriptName("deploytool")
   .description("Deploy tool")
   .version("0.1.0")
   .use(helpPlugin())
+  .use(versionPlugin())
   .command("setup", "Set up a server for future deployment", {
     parameters: ["<ip>"],
     flags: {

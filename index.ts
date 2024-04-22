@@ -45,6 +45,18 @@ Clerc.create()
         type: [String],
         description: "Environment variables",
       },
+      registry: {
+        type: String,
+        description: "Docker registry server",
+      },
+      "registry-username": {
+        type: String,
+        description: "Docker registry username",
+      },
+      "registry-password": {
+        type: String,
+        description: "Docker registry password",
+      },
     },
   })
   .on("setup", async (context) => {
@@ -66,6 +78,11 @@ Clerc.create()
       port,
       path,
       environment,
+      registry: {
+        server: context.flags.registry,
+        username: context.flags["registry-username"],
+        password: context.flags["registry-password"],
+      },
     });
   })
   .parse();

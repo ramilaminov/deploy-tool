@@ -1,11 +1,23 @@
 import { $ } from "bun";
 import type { SSHRunner } from "../utils/ssh";
+import {
+  logInToDockerRegistry,
+  type DockerRegistry,
+} from "./log-in-to-docker-registry";
 
 export async function deployDockerStack(
   ssh: SSHRunner,
-  { compose, name }: { compose: string; name: string },
+  {
+    compose,
+    name,
+    registry,
+  }: { compose: string; name: string; registry?: DockerRegistry },
 ) {
   console.log(`Deploying '${name}' stack...`);
+
+  if (registry) {
+    await logInToDockerRegistry(ssh, registry);
+  }
 
   await ssh(
     `echo ${$.escape(

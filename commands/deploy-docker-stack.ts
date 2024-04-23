@@ -19,10 +19,10 @@ export async function deployDockerStack(
     await logInToDockerRegistry(ssh, registry);
   }
 
+  const composeIn = `echo ${$.escape(compose)}`;
+
   await ssh(
-    `echo ${$.escape(
-      compose,
-    )} | sudo docker stack deploy -c - ${name} > /dev/null`,
+    `${composeIn} | sudo docker stack deploy -c - ${$.escape(name)} >/dev/null`,
   );
 
   console.log(`Stack '${name}' started successfully.`);

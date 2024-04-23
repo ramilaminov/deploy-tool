@@ -20,7 +20,7 @@ export async function logInToDockerRegistry(
   let command = "sudo docker login";
 
   if (username !== undefined) {
-    command = `${command} --username ${username}`;
+    command = `${command} --username ${$.escape(username)}`;
   }
 
   if (password !== undefined) {
@@ -28,7 +28,7 @@ export async function logInToDockerRegistry(
   }
 
   if (server !== undefined) {
-    command = `${command} ${server}`;
+    command = `${command} ${$.escape(server)}`;
   }
 
   await ssh(command);

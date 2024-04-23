@@ -9,11 +9,13 @@ export type DockerRegistry = {
 
 export async function logInToDockerRegistry(
   ssh: SSHRunner,
-  registry: DockerRegistry,
+  { server, username, password }: DockerRegistry,
 ) {
-  console.log("Logging in to Docker registry...");
-
-  const { server, username, password } = registry;
+  console.log(
+    `Logging in to Docker registry${server ? ` at  ${server}` : ""}${
+      username ? ` with username ${username}` : ""
+    }...`,
+  );
 
   let command = "sudo docker login";
 

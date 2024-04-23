@@ -1,8 +1,8 @@
 import { $ } from "bun";
 import type { SSHRunner } from "../utils/ssh";
 import {
-  logInToDockerRegistry,
   type DockerRegistry,
+  logInToDockerRegistry,
 } from "./log-in-to-docker-registry";
 
 export async function deployDockerStack(

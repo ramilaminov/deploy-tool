@@ -32,7 +32,7 @@ Clerc.create()
       path: {
         alias: "P",
         type: String,
-        description: "Path prefix that the service should handle",
+        description: "Path prefix the service should handle",
       },
       sshUser: {
         alias: "u",

@@ -5,6 +5,8 @@ export async function createDockerNetwork(
   ssh: SSHRunner,
   { name }: { name: string },
 ) {
+  // TODO Check if network is already installed first
+
   console.log(`Creating Docker network named '${name}'...`);
 
   await ssh(

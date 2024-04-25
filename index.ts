@@ -63,9 +63,7 @@ Clerc.create()
     const { ip } = context.parameters;
     const { sshUser } = context.flags;
 
-    await setup(ssh(ip, sshUser), {
-      ip,
-    });
+    await setup(ssh(ip, sshUser), { ip });
   })
   .on("deploy", async (context) => {
     const { ip, domain, image, name } = context.parameters;

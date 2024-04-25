@@ -31,7 +31,7 @@ export const traefikCompose = () =>
             constraints: ["node.role == manager"],
           },
           labels: {
-            "traefik.enable": false,
+            "traefik.enable": "false",
             "traefik.docker.network": "traefik-public",
           },
         },

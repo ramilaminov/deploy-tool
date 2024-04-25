@@ -40,7 +40,7 @@ export const serviceCompose = ({
             window: "120s",
           },
           labels: {
-            "traefik.enable": true,
+            "traefik.enable": "true",
             [`traefik.http.services.${name}.loadbalancer.server.port`]: port,
             [`traefik.http.routers.${name}.rule`]: `Host(\`${domain}\`)${
               path !== "/" ? ` && PathPrefix(\`${path}\`)` : ""
